@@ -385,7 +385,7 @@ end
 
 %% Non-dimesionalize
 D.u = D.u/U;
-D.v = D.u/U;
+D.v = D.v/U;
 D.vort = D.vort*L/U;
 D.x = D.x/L;
 D.y = D.y/L;
@@ -559,6 +559,7 @@ end
 % [omega_z, ~] = curl(xRaw, yRaw, uRaw, vRaw);
 
 end
+
 
 
 
