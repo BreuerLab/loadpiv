@@ -14,6 +14,13 @@ Make sure the add-on corresponds to the correct Operating System.
  ## Sintax:
  
  `D = loadpiv(folderPIV)`
+ `D = loadpiv(folderPIV, params, "nondim")`
+ `D = loadpiv(folderPIV, "extractAllVariables")`
+ `D = loadpiv(folderPIV, "numCamFields", 2)`
+ `D = loadpiv(folderPIV, "frameRange", [1:2:100])`
+ `D = loadpiv(folderPIV, "fovCenter", [-0.2, 3.1])`
+ `D = loadpiv(folderPIV, "fovRot", 0.23)`
+ `D = loadpiv(folderPIV, "Validate", 0.4)`
  -------------------------------------------------------------------------
  ### Mandatory inputs:
 
@@ -37,7 +44,7 @@ Make sure the add-on corresponds to the correct Operating System.
                    params.L = characteristic_length
                    params.U = characteristic_velocity
 
- D = loadpiv(__, params, "extractAllVariables") : Extracts all data
+ `D = loadpiv(__, params, "extractAllVariables")` : Extracts all data
            found in the "vc7" files. Depending on the dataset, the extract
            ed variables might include the following:
                D.x : x-coordinates matrix
@@ -53,67 +60,67 @@ Make sure the add-on corresponds to the correct Operating System.
 
  ### Name-value arguments:
 
- D = loadpiv(__, "numCamFields", numCamera) : Number of independent fields
+ `D = loadpiv(__, "numCamFields", numCamera)` : Number of independent fields
                from different cameras. Used for processing.
 
- D = loadpiv(__, "frameRange", frames) : Specifies specific frames to
+ `D = loadpiv(__, "frameRange", frames)` : Specifies specific frames to
                be extracted instead of the full dataset. Must be followed
                by a 1D array containing the frame numbers.
 
- D = loadpiv(__, "fovCenter", [xcntr, ycntr]) : Specifies the location
+ `D = loadpiv(__, "fovCenter", [xcntr, ycntr])` : Specifies the location
                of the desired origin of the coordinate axis. Must be
                followed by a [x0,y0] array specified in meters.
 
- D = loadpiv(__, "fovRot", rotAngle) : Specifies the rotation of the
+ `D = loadpiv(__, "fovRot", rotAngle)` : Specifies the rotation of the
                fov with respect to the origin. Must be followed by the
                angle's value in radians.
 
- D = loadpiv(__, "Validate", minCorrelationValue) : sets a minimum
+ `D = loadpiv(__, "Validate", minCorrelationValue)` : sets a minimum
                correlation value, otherwise put NaN.
 
  -------------------------------------------------------------------------
  ### Output data - all in a data structure "D":
 
- x : array containing x-coordinates with size [n,m].
+ > `x` : array containing x-coordinates with size `[n, m]`.
 
- y : array containing y-coordinates with size [n,m].
+ > `y` : array containing y-coordinates with size `[n, m]`.
 
- u : array containing x-component of flow velocity with size [n,m,N].
+ > `u` : array containing x-component of flow velocity with size `[n, m, N]`.
 
- v : array containing y-component of flow velocity with size [n,m,N].
+ > `v` : array containing y-component of flow velocity with size `[n, m, N]`.
 
- w : array containing z-component of flow velocity with size [n,m,N].
+ > `w` : array containing z-component of flow velocity with size `[n, m, N]`.
 
- vort : array containing z-component of vorticity with size [n,m,N].
+ > `vort` : array containing z-component of vorticity with size `[n, m, N]`.
 
- corr : array containing correlation values with size [n,m,N].
+ > `corr` : array containing correlation values with size `[n, m, N]`.
 
- uncU : array containing u-velocity uncertainty with size [n,m,N].
+ > `uncU` : array containing u-velocity uncertainty with size `[n, m, N]`.
 
- uncV : array containing v-velocity uncertainty with size [n,m,N].
+ > `uncV` : array containing v-velocity uncertainty with size `[n, m, N]`.
 
- uncW : array containing z-velocity uncertainty with size [n,m,N].
+ > `uncW` : array containing z-velocity uncertainty with size `[n, m, N]`.
 
  -------------------------------------------------------------------------
  ## UPDATES:
 
- Version 1.0.0
+ #### Version 1.0.0
  2024/10/31 - Eric Handy (with snippets from Alex, Siyang and Kenny)
  
- Version 1.1.0
+ #### Version 1.1.0
  2024/11/06 - Eric Handy
  - Bug fixes.
  - Changed vorticity calculation from MATLAB's "curl()" function to the
    algorithm specified by Raffel's PIV Handbook.
 
- Version 1.1.1
+ #### Version 1.1.1
  2025/05/12 - Eric Handy
  - Fixed bug that immediately identified any second parameter as "params".
  - Fixed a bug that did not assign all output variables specified when
    using the "extractAllVariables" option.
  NOTE: These issues have not been robustly tested.
 
- Version 2.0.0
+ #### Version 2.0.0
  2025/08/06 - Kenny Breuer
  - Added a "validate" option that returns data only if it meets a correlation
    threshold.
@@ -123,19 +130,19 @@ Make sure the add-on corresponds to the correct Operating System.
  - Doesn't return "isvalid" - that doesn't seem to be present in all the PIV
    data.
 
- Version 2.1.0
+ #### Version 2.1.0
  2025/09/30 - Pedro C Ormonde
  - Fixed hard-coded indices for field names ('U0','V0','TS:Correlation
    value', etc). Now the function reads from available field names.
  - Added optional input "n_camField" if data contains multiple monoPIV 
    fields from multiple cameras. Default: n_camField = 1.
 
- =========================================================================
- SINTAX FOR UPDATES:
- Version N1.N2.N3
+--------------------------------------------------------------------------
+ **SINTAX FOR UPDATES:**
+ #### Version N1.N2.N3
  YYYY/MM/DD - Name Last
  - N1 for large structural overhauls to the function (new data structure,
    new input/output format, new algorithm, etc.).
  - N2 for small additions to fn (new arguments, new outputs, etc.).
  - N3 for bug fixes and compatibility updates.
- =========================================================================
+--------------------------------------------------------------------------
