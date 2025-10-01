@@ -32,7 +32,7 @@ Make sure the add-on corresponds to the correct Operating System.**
  -------------------------------------------------------------------------
  ### Mandatory inputs:
 
- `D = loadpiv(folderPIV)` : Extracts PIV data from directory "folderPIV".
+ `D = loadpiv(folderPIV)` : Extracts PIV data from directory "`folderPIV`" and stores it in the structure `D`.
            The directory must contain the ".vc7" files. Only extracts
            coordinates, velocity components, and z-vorticity. Depending on
            the dataset, the extracted variables might include the
@@ -48,13 +48,13 @@ Make sure the add-on corresponds to the correct Operating System.**
  ### Optional inputs:
 
  `D = loadpiv(__, params, "nondim")` : Extracts and non-dimensionalizes
-           data using parameters contained in structure "params".
-           "params" must have the form:
-                   - `params.L` = characteristic_length
-                   - `params.U` = characteristic_velocity
+           data using parameters contained in the structure "`params`".
+           "`params`" must have the form: <br />
+- `params.L` = characteristic_length <br />
+- `params.U` = characteristic_velocity <br />
 
  `D = loadpiv(__, params, "extractAllVariables")` : Extracts all data
-           found in the "vc7" files. Depending on the dataset, the extract
+           found in the ".vc7" files. Depending on the dataset, the extract
            ed variables might include the following: <br />
 - `D.x` : x-coordinates matrix <br />
 - `D.y` : y-coordinates matrix <br />
@@ -115,7 +115,7 @@ Make sure the add-on corresponds to the correct Operating System.**
  ## UPDATES:
 
  #### Version 1.0.0
- 2024/10/31 - Eric Handy (with snippets from Alex, Siyang and Kenny)
+ 2024/10/31 - Eric Handy (with snippets from Alex, Siyang, and Kenny)
  
  #### Version 1.1.0
  2024/11/06 - Eric Handy
@@ -146,6 +146,10 @@ Make sure the add-on corresponds to the correct Operating System.**
    value', etc). Now the function reads from available field names.
  - Added optional input "n_camField" if data contains multiple monoPIV 
    fields from multiple cameras. Default: n_camField = 1.
+
+#### Version 2.1.1
+ 2025/10/01 - Eric Handy
+ - Bug fixes.
 
 --------------------------------------------------------------------------
  **SINTAX FOR UPDATES:**
