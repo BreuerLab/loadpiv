@@ -2,7 +2,7 @@
 This MATLAB function extracts data from LaVision DaVis PIV files.
 Extracts and formats data from "vc7" files contained in "folderPIV".
 
-For this function to work, the user must download the [MATLAB add-on provided by LaVision](https://www.lavision.de/en/downloads/software/matlab_add_ons.php).
+> For this function to work, the user must download the [MATLAB add-on provided by LaVision](https://www.lavision.de/en/downloads/software/matlab_add_ons.php).
 Make sure the add-on corresponds to the correct Operating System.
 
  **NOTES:**
@@ -12,6 +12,7 @@ Make sure the add-on corresponds to the correct Operating System.
    VERSION DESCRIPTION IN THE FORMAT SPECIFIED.
  -------------------------------------------------------------------------
  ## Sintax:
+ 
  `D = loadpiv(folderPIV)`
  -------------------------------------------------------------------------
  ### Mandatory inputs:
@@ -30,7 +31,7 @@ Make sure the add-on corresponds to the correct Operating System.
 
  ### Optional inputs:
 
- D = loadpiv(__, params, "nondim") : Extracts and non-dimensionalizes
+ `D = loadpiv(__, params, "nondim")` : Extracts and non-dimensionalizes
            data using parameters contained in structure "params".
            "params" must have the form:
                    params.L = characteristic_length
