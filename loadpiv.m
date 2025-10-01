@@ -141,52 +141,63 @@ function D = loadpiv(folderPIV, varargin)
 CorrelationThreshold = 1.0;
 
 % Parse inputs:
+skip_next = 0;
 for optionNum = 1:length(varargin)
-    var_option = varargin{optionNum};
-
-    % Name-value arguments:
-    if ~isnumeric(var_option) && ~isstruct(var_option)
-        switch var_option
-            case 'frameRange' % to extract specific frames
-                frameRange = varargin{optionNum+1};
-                if ~isnumeric(frameRange)
-                    error('Value of "frameRange" must be a numerical integer array.');
-                end
-
-            case 'nondim' % non-dimensionalize data option
-                nondim = 1;
-
-            case 'extractAllVariables' % extract all optional variables
-                eav = 1;
-
-            case 'fovCenter' % specify coordinate center
-                fovCenter = varargin{optionNum+1};
-                if ~isvector(fovCenter) || ~isnumeric(fovCenter)
-                    error('"fovCenter" coordinates invalid, must be a numeric vector [x, y].')
-                end
-
-            case 'fovRot' % specify coordinate rotation
-                fovRot = varargin{optionNum+1};
-                if ~isnumeric(fovRot)
-                    error('"fovRot" value invalid, must be a numeric value in radians.')
-                end
-
-            case 'Validate' % specify minimum vector correlation
-                CorrelationThreshold = varargin{optionNum+1};
-                fprintf('Minimium correlation: %6.2f\n', CorrelationThreshold);
-                
-            case 'numCamFields' % specify which camera to extract data from
-                n_camField = varargin{optionNum+1};
-                fprintf('Extracting fields for camera: %1.0d\n',n_camField);
-
-            otherwise
-                error(['Invalid name-value argument: "',var_option,'" for input "options."'])
-        end
-    % Params structure:
-    elseif isstruct(var_option)
-        params = var_option;
+    if skip_next == 1 % skip to next in case a name-value argument was just evaluated
+        skip_next = 0;
+        continue;
     else
-        error(['Input not recognized:',newline,var_option]);
+        var_option = varargin{optionNum};
+    
+        % Name-value arguments:
+        if ~isnumeric(var_option) && ~isstruct(var_option)
+            switch var_option
+                case 'frameRange' % to extract specific frames
+                    frameRange = varargin{optionNum+1};
+                    if ~isnumeric(frameRange)
+                        error('Value of "frameRange" must be a numerical integer array.');
+                    end
+                    skip_next = 1;
+    
+                case 'nondim' % non-dimensionalize data option
+                    nondim = 1;
+    
+                case 'extractAllVariables' % extract all optional variables
+                    eav = 1;
+    
+                case 'fovCenter' % specify coordinate center
+                    fovCenter = varargin{optionNum+1};
+                    if ~isvector(fovCenter) || ~isnumeric(fovCenter)
+                        error('"fovCenter" coordinates invalid, must be a numeric vector [x, y].')
+                    end
+                    skip_next = 1;
+    
+                case 'fovRot' % specify coordinate rotation
+                    fovRot = varargin{optionNum+1};
+                    if ~isnumeric(fovRot)
+                        error('"fovRot" value invalid, must be a numeric value in radians.')
+                    end
+                    skip_next = 1;
+    
+                case 'Validate' % specify minimum vector correlation
+                    CorrelationThreshold = varargin{optionNum+1};
+                    fprintf('Minimium correlation: %6.2f\n', CorrelationThreshold);
+                    skip_next = 1;
+                    
+                case 'numCamFields' % specify which camera to extract data from
+                    n_camField = varargin{optionNum+1};
+                    fprintf('Extracting fields for camera: %1.0d\n',n_camField);
+                    skip_next = 1;
+    
+                otherwise
+                    error(['Invalid name-value argument: "',var_option,'" for input "options."'])
+            end
+        % Params structure:
+        elseif isstruct(var_option)
+            params = var_option;
+        else
+            error(['Input not recognized:',newline,var_option]);
+        end
     end
 end
 
@@ -507,6 +518,7 @@ end
 % [omega_z, ~] = curl(xRaw, yRaw, uRaw, vRaw);
 
 end
+
 
 
 
