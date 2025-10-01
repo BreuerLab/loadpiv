@@ -163,6 +163,13 @@ function D = loadpiv(folderPIV, varargin)
 
 %% Check input parameters
 
+% Check if folderPIV is passed and put into char format
+if isempty(folderPIV) || ~exist('folderPIV','Var')
+    error('Missing input argument: "folderPIV".');
+elseif ~ischar(folderPIV)
+    folderPIV = convertStringsToChars(folderPIV);
+end
+
 % Default parameters:
 CorrelationThreshold = 1.0;
 
@@ -216,13 +223,21 @@ for optionNum = 1:length(varargin)
                     skip_next = 1;
     
                 otherwise
-                    error(['Invalid name-value argument: "',var_option,'" for input "options."'])
+                    if isempty(var_option)
+                        error('Empty argument "[]" not valid sintax.');
+                    else
+                        error(['Invalid argument: "',var_option,'" for input "options."']);
+                    end
             end
         % Params structure:
         elseif isstruct(var_option)
             params = var_option;
         else
-            error(['Input not recognized:',newline,var_option]);
+            if isempty(var_option)
+                error('Empty argument "[]" not valid sintax.');
+            else
+                error(['Input not recognized:',newline,var_option]);
+            end
         end
     end
 end
