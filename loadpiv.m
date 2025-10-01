@@ -171,7 +171,7 @@ elseif ~ischar(folderPIV)
 end
 
 % Default parameters:
-CorrelationThreshold = 1.0;
+CorrelationThreshold = 0;
 
 % Parse inputs:
 skip_next = 0;
