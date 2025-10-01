@@ -79,14 +79,14 @@ Make sure the add-on corresponds to the correct Operating System.**
 
  `D = loadpiv(__, "fovCenter", [xcntr, ycntr])` : Specifies the location
                of the desired origin of the coordinate axis. Must be
-               followed by a [x0,y0] array specified in meters.
+               followed by a `[xcntr, ycntr]` array specified in meters.
 
  `D = loadpiv(__, "fovRot", rotAngle)` : Specifies the rotation of the
                fov with respect to the origin. Must be followed by the
                angle's value in radians.
 
- `D = loadpiv(__, "Validate", minCorrelationValue)` : sets a minimum
-               correlation value, otherwise put NaN.
+ `D = loadpiv(__, "Validate", minCorrelationValue)` : Sets a minimum
+               correlation value, otherwise passes NaN-values.
 
  -------------------------------------------------------------------------
  ### Output data - all in a data structure "D":
