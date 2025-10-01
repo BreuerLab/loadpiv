@@ -55,17 +55,17 @@ Make sure the add-on corresponds to the correct Operating System.**
 
  `D = loadpiv(__, params, "extractAllVariables")` : Extracts all data
            found in the "vc7" files. Depending on the dataset, the extract
-           ed variables might include the following:
-               - `D.x` : x-coordinates matrix
-               - `D.y` : y-coordinates matrix
-               - `D.u` : x-velocity component
-               - `D.v` : y-velocity component
-               - `D.w` : z-velocity component
-               - `D.vort` : z-vorticity component
-               - `D.corr` : correlation values
-               - `D.uncU` : x-velocity uncertainty
-               - `D.uncV` : y-velocity uncertainty
-               - `D.uncW` : z-velocity uncertainty
+           ed variables might include the following: <br />
+- `D.x` : x-coordinates matrix <br />
+- `D.y` : y-coordinates matrix <br />
+- `D.u` : x-velocity component <br />
+- `D.v` : y-velocity component <br />
+- `D.w` : z-velocity component <br />
+- `D.vort` : z-vorticity component <br />
+- `D.corr` : correlation values <br />
+- `D.uncU` : x-velocity uncertainty <br />
+- `D.uncV` : y-velocity uncertainty <br />
+- `D.uncW` : z-velocity uncertainty <br />
 
  -------------------------------------------------------------------------
  ### Name-value arguments:
