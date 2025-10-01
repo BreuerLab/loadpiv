@@ -5,7 +5,7 @@ Extracts and formats data from "vc7" files contained in "folderPIV".
 **IMPORTANT: For this function to work, the user must download the [MATLAB add-on provided by LaVision](https://www.lavision.de/en/downloads/software/matlab_add_ons.php) (i.e., the *readimx_WIN* or *readimx_MAC* folder).
 Make sure the add-on corresponds to the correct Operating System.**
 
- **NOTES:**
+ **IMPORTANT NOTES:**
  - For this function to work, the *readimx* folder **MUST** be in your PATH.
  - Whenever new updates are made, PLEASE UPDATE THE DOCUMENTATION AND ADD A
    VERSION DESCRIPTION IN THE FORMAT SPECIFIED.
