@@ -2,7 +2,7 @@
 This MATLAB function extracts data from LaVision DaVis PIV files.
 Extracts and formats data from "vc7" files contained in "folderPIV".
 
-**IMPORTANT: For this function to work, the user must download the [MATLAB add-on provided by LaVision](https://www.lavision.de/en/downloads/software/matlab_add_ons.php).
+**IMPORTANT: For this function to work, the user must download the [MATLAB add-on provided by LaVision](https://www.lavision.de/en/downloads/software/matlab_add_ons.php) (i.e., the *readimx_WIN* or *readimx_MAC* folder).
 Make sure the add-on corresponds to the correct Operating System.**
 
  **NOTES:**
