@@ -145,7 +145,7 @@ for optionNum = 1:length(varargin)
     var_option = varargin{optionNum};
 
     % Name-value arguments:
-    if ~isnumeric(var_option)
+    if ~isnumeric(var_option) && ~isstruct(var_option)
         switch var_option
             case 'frameRange' % to extract specific frames
                 frameRange = varargin{optionNum+1};
@@ -507,5 +507,6 @@ end
 % [omega_z, ~] = curl(xRaw, yRaw, uRaw, vRaw);
 
 end
+
 
 
