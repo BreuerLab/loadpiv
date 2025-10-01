@@ -6,8 +6,7 @@ Extracts and formats data from "vc7" files contained in "folderPIV".
 Make sure the add-on corresponds to the correct Operating System.**
 
  **NOTES:**
- - Either this function *MUST* be contained in the same directory as the
-   **"readimx"** folder, or you must have the **"readimx"** folder in your PATH.
+ - For this function to work, the *readimx* folder **MUST** be in your PATH.
  - Whenever new updates are made, PLEASE UPDATE THE DOCUMENTATION AND ADD A
    VERSION DESCRIPTION IN THE FORMAT SPECIFIED.
  -------------------------------------------------------------------------
