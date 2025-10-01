@@ -2,7 +2,7 @@
 This MATLAB function extracts data from LaVision DaVis PIV files.
 Extracts and formats data from "vc7" files contained in "folderPIV".
 
-**For this function to work, the user must download the [MATLAB add-on provided by LaVision](https://www.lavision.de/en/downloads/software/matlab_add_ons.php).
+**IMPORTANT: For this function to work, the user must download the [MATLAB add-on provided by LaVision](https://www.lavision.de/en/downloads/software/matlab_add_ons.php).
 Make sure the add-on corresponds to the correct Operating System.**
 
  **NOTES:**
@@ -14,12 +14,19 @@ Make sure the add-on corresponds to the correct Operating System.**
  ## Sintax:
  
  `D = loadpiv(folderPIV)`
+ 
  `D = loadpiv(folderPIV, params, "nondim")`
+ 
  `D = loadpiv(folderPIV, "extractAllVariables")`
+ 
  `D = loadpiv(folderPIV, "numCamFields", 2)`
+ 
  `D = loadpiv(folderPIV, "frameRange", [1:2:100])`
+ 
  `D = loadpiv(folderPIV, "fovCenter", [-0.2, 3.1])`
+ 
  `D = loadpiv(folderPIV, "fovRot", 0.23)`
+ 
  `D = loadpiv(folderPIV, "Validate", 0.4)`
  
  -------------------------------------------------------------------------
