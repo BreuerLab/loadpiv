@@ -36,12 +36,12 @@ Make sure the add-on corresponds to the correct Operating System.**
            The directory must contain the ".vc7" files. Only extracts
            coordinates, velocity components, and z-vorticity. Depending on
            the dataset, the extracted variables might include the
-           following:
+           following: <br />
                - `D.x` : x-coordinates matrix <br />
-               - `D.y` : y-coordinates matrix
-               - `D.u` : x-velocity component
-               - `D.v` : y-velocity component
-               - `D.w` : z-velocity component
+               - `D.y` : y-coordinates matrix <br />
+               - `D.u` : x-velocity component <br />
+               - `D.v` : y-velocity component <br />
+               - `D.w` : z-velocity component <br />
                - `D.vort` : z-vorticity component
 
  -------------------------------------------------------------------------
