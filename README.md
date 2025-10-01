@@ -2,12 +2,12 @@
 This MATLAB function extracts data from LaVision DaVis PIV files.
 Extracts and formats data from "vc7" files contained in "folderPIV".
 
-> For this function to work, the user must download the [MATLAB add-on provided by LaVision](https://www.lavision.de/en/downloads/software/matlab_add_ons.php).
-Make sure the add-on corresponds to the correct Operating System.
+**For this function to work, the user must download the [MATLAB add-on provided by LaVision](https://www.lavision.de/en/downloads/software/matlab_add_ons.php).
+Make sure the add-on corresponds to the correct Operating System.**
 
  **NOTES:**
  - Either this function *MUST* be contained in the same directory as the
-   "readimx_WIN" folder, or you must have the **"readimx"** folder in your PATH.
+   **"readimx"** folder, or you must have the **"readimx"** folder in your PATH.
  - Whenever new updates are made, PLEASE UPDATE THE DOCUMENTATION AND ADD A
    VERSION DESCRIPTION IN THE FORMAT SPECIFIED.
  -------------------------------------------------------------------------
@@ -21,6 +21,7 @@ Make sure the add-on corresponds to the correct Operating System.
  `D = loadpiv(folderPIV, "fovCenter", [-0.2, 3.1])`
  `D = loadpiv(folderPIV, "fovRot", 0.23)`
  `D = loadpiv(folderPIV, "Validate", 0.4)`
+ 
  -------------------------------------------------------------------------
  ### Mandatory inputs:
 
@@ -29,35 +30,37 @@ Make sure the add-on corresponds to the correct Operating System.
            coordinates, velocity components, and z-vorticity. Depending on
            the dataset, the extracted variables might include the
            following:
-               D.x : x-coordinates matrix
-               D.y : y-coordinates matrix
-               D.u : x-velocity component
-               D.v : y-velocity component
-               D.w : z-velocity component
-               D.vort : z-vorticity component
+               - `D.x` : x-coordinates matrix
+               - `D.y` : y-coordinates matrix
+               - `D.u` : x-velocity component
+               - `D.v` : y-velocity component
+               - `D.w` : z-velocity component
+               - `D.vort` : z-vorticity component
 
+ -------------------------------------------------------------------------
  ### Optional inputs:
 
  `D = loadpiv(__, params, "nondim")` : Extracts and non-dimensionalizes
            data using parameters contained in structure "params".
            "params" must have the form:
-                   params.L = characteristic_length
-                   params.U = characteristic_velocity
+                   - `params.L` = characteristic_length
+                   - `params.U` = characteristic_velocity
 
  `D = loadpiv(__, params, "extractAllVariables")` : Extracts all data
            found in the "vc7" files. Depending on the dataset, the extract
            ed variables might include the following:
-               D.x : x-coordinates matrix
-               D.y : y-coordinates matrix
-               D.u : x-velocity component
-               D.v : y-velocity component
-               D.w : z-velocity component
-               D.vort : z-vorticity component
-               D.corr : correlation values
-               D.uncU : x-velocity uncertainty
-               D.uncV : y-velocity uncertainty
-               D.uncW : z-velocity uncertainty
+               - `D.x` : x-coordinates matrix
+               - `D.y` : y-coordinates matrix
+               - `D.u` : x-velocity component
+               - `D.v` : y-velocity component
+               - `D.w` : z-velocity component
+               - `D.vort` : z-vorticity component
+               - `D.corr` : correlation values
+               - `D.uncU` : x-velocity uncertainty
+               - `D.uncV` : y-velocity uncertainty
+               - `D.uncW` : z-velocity uncertainty
 
+ -------------------------------------------------------------------------
  ### Name-value arguments:
 
  `D = loadpiv(__, "numCamFields", numCamera)` : Number of independent fields
@@ -81,25 +84,25 @@ Make sure the add-on corresponds to the correct Operating System.
  -------------------------------------------------------------------------
  ### Output data - all in a data structure "D":
 
- > `x` : array containing x-coordinates with size `[n, m]`.
+`x` : array containing x-coordinates with size `[n, m]`.
 
- > `y` : array containing y-coordinates with size `[n, m]`.
+`y` : array containing y-coordinates with size `[n, m]`.
 
- > `u` : array containing x-component of flow velocity with size `[n, m, N]`.
+`u` : array containing x-component of flow velocity with size `[n, m, N]`.
 
- > `v` : array containing y-component of flow velocity with size `[n, m, N]`.
+`v` : array containing y-component of flow velocity with size `[n, m, N]`.
 
- > `w` : array containing z-component of flow velocity with size `[n, m, N]`.
+`w` : array containing z-component of flow velocity with size `[n, m, N]`.
 
- > `vort` : array containing z-component of vorticity with size `[n, m, N]`.
+`vort` : array containing z-component of vorticity with size `[n, m, N]`.
 
- > `corr` : array containing correlation values with size `[n, m, N]`.
+`corr` : array containing correlation values with size `[n, m, N]`.
 
- > `uncU` : array containing u-velocity uncertainty with size `[n, m, N]`.
+`uncU` : array containing u-velocity uncertainty with size `[n, m, N]`.
 
- > `uncV` : array containing v-velocity uncertainty with size `[n, m, N]`.
+`uncV` : array containing v-velocity uncertainty with size `[n, m, N]`.
 
- > `uncW` : array containing z-velocity uncertainty with size `[n, m, N]`.
+`uncW` : array containing z-velocity uncertainty with size `[n, m, N]`.
 
  -------------------------------------------------------------------------
  ## UPDATES:
