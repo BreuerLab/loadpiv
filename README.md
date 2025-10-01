@@ -37,12 +37,12 @@ Make sure the add-on corresponds to the correct Operating System.**
            coordinates, velocity components, and z-vorticity. Depending on
            the dataset, the extracted variables might include the
            following: <br />
-               - `D.x` : x-coordinates matrix <br />
-               - `D.y` : y-coordinates matrix <br />
-               - `D.u` : x-velocity component <br />
-               - `D.v` : y-velocity component <br />
-               - `D.w` : z-velocity component <br />
-               - `D.vort` : z-vorticity component
+- `D.x` : x-coordinates matrix <br />
+- `D.y` : y-coordinates matrix <br />
+- `D.u` : x-velocity component <br />
+- `D.v` : y-velocity component <br />
+- `D.w` : z-velocity component <br />
+- `D.vort` : z-vorticity component
 
  -------------------------------------------------------------------------
  ### Optional inputs:
