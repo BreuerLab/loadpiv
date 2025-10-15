@@ -89,13 +89,13 @@ function varargout = loadpiv(folderPIV, varargin)
 % 
 %  -------------------------------------------------------------------------
 %  ### Output arguments
-%  
+% 
 %  `D = loadpiv(__)` : outputs flow data in structure `D`.
-%  
+% 
 %  `[D,A] = loadpiv(__)` : outputs flow data in structure `D`, and recording
 %                attributes in structure `A`. Currently only outputs 
 %                **total acquisition time** in seconds.
-%  
+% 
 %  -------------------------------------------------------------------------
 %  ### Output flow data - data structure "D":
 % 
@@ -123,7 +123,7 @@ function varargout = loadpiv(folderPIV, varargin)
 %  ### Output recording attributes - structure "A":
 % 
 % `totalAcquisitionTime` : total PIV acquisition time in seconds.
-%
+% 
 %  -------------------------------------------------------------------------
 %  ## UPDATES:
 % 
@@ -163,7 +163,7 @@ function varargout = loadpiv(folderPIV, varargin)
 % #### Version 2.1.1
 %  2025/10/01 - Eric Handy
 %  - Bug fixes.
-%
+% 
 % #### Version 2.2.0
 %  2025/10/15 - Eric Handy
 %  - Added option to output a recording attributes structure `A`.
@@ -347,20 +347,25 @@ for file = frameRange
     fname = readimx(fullfile(folderPIV,files(file).name));
     
     % Extract attributes --------------------------------------------------
-    if fnum == 1 && nargout  == 2
-        Attr = fname.Attributes;
+    if nargout  == 2
+        Attr = fname.Frames{1}.Attributes;
         % find desired attribute
         for i = 1:length(Attr)
             attr_name = Attr{i}.Name;
             switch attr_name
                 case 'AcqTimeSeries'
-                    A.totalAcquisitionTime = double(Attr{i}.Value(1)) + double(Attr{i}.Value(2))*10^-(length(num2str(double(Attr{i}.Value(2)))));
-                    break
+                    if fnum == 1
+                        acqTime_strt = str2double(Attr{i}.Value(1:end-3))*10^-6;
+                    elseif fnum == N
+                        acqTime_fnsh = str2double(Attr{i}.Value(1:end-3))*10^-6;
+                    end
+                    % break
                 otherwise
                     continue;
             end
         end
-    end % -----------------------------------------------------------------
+    end
+    % -----------------------------------------------------------------
 
     % Extract data from file - returns data structure from one PIV frame
     out1 = extractData(fname, CorrelationThreshold,n_camField);
@@ -440,6 +445,7 @@ if out1.dimNum == 3
 end
 
 % Set output variables
+A.totalAcquisitionTime = acqTime_fnsh - acqTime_strt;
 switch nargout
     case 1
         varargout{1} = D;
