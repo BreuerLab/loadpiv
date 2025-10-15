@@ -1,4 +1,4 @@
-function D = loadpiv(folderPIV, varargin)
+function varargout = loadpiv(folderPIV, varargin)
 % This MATLAB function extracts data from LaVision DaVis PIV files.
 % Extracts and formats data from "vc7" files contained in "folderPIV".
 % 
@@ -88,7 +88,16 @@ function D = loadpiv(folderPIV, varargin)
 %                correlation value, otherwise passes NaN-values.
 % 
 %  -------------------------------------------------------------------------
-%  ### Output data - all in a data structure "D":
+%  ### Output arguments
+%  
+%  `D = loadpiv(__)` : outputs flow data in structure `D`.
+%  
+%  `[D,A] = loadpiv(__)` : outputs flow data in structure `D`, and recording
+%                attributes in structure `A`. Currently only outputs 
+%                **total acquisition time** in seconds.
+%  
+%  -------------------------------------------------------------------------
+%  ### Output flow data - data structure "D":
 % 
 % `x` : array containing x-coordinates with size `[n, m]`.
 % 
@@ -110,6 +119,11 @@ function D = loadpiv(folderPIV, varargin)
 % 
 % `uncW` : array containing z-velocity uncertainty with size `[n, m, N]`.
 % 
+%  -------------------------------------------------------------------------
+%  ### Output recording attributes - structure "A":
+% 
+% `totalAcquisitionTime` : total PIV acquisition time in seconds.
+%
 %  -------------------------------------------------------------------------
 %  ## UPDATES:
 % 
@@ -149,7 +163,11 @@ function D = loadpiv(folderPIV, varargin)
 % #### Version 2.1.1
 %  2025/10/01 - Eric Handy
 %  - Bug fixes.
-% 
+%
+% #### Version 2.2.0
+%  2025/10/15 - Eric Handy
+%  - Added option to output a recording attributes structure `A`.
+%  - Bug fixes.
 % --------------------------------------------------------------------------
 %  **SINTAX FOR UPDATES:**
 %  #### Version N1.N2.N3
@@ -162,6 +180,9 @@ function D = loadpiv(folderPIV, varargin)
 
 
 %% Check input parameters
+
+% Check number of outputs
+nargoutchk(1,2);
 
 % Check if folderPIV is passed and put into char format
 if isempty(folderPIV) || ~exist('folderPIV','Var')
@@ -324,6 +345,22 @@ for file = frameRange
 
     % Read DaVis file
     fname = readimx(fullfile(folderPIV,files(file).name));
+    
+    % Extract attributes --------------------------------------------------
+    if fnum == 1 && nargout  == 2
+        Attr = fname.Attributes;
+        % find desired attribute
+        for i = 1:length(Attr)
+            attr_name = Attr{i}.Name;
+            switch attr_name
+                case 'AcqTimeSeries'
+                    A.totalAcquisitionTime = double(Attr{i}.Value(1)) + double(Attr{i}.Value(2))*10^-(length(num2str(double(Attr{i}.Value(2)))));
+                    break
+                otherwise
+                    continue;
+            end
+        end
+    end % -----------------------------------------------------------------
 
     % Extract data from file - returns data structure from one PIV frame
     out1 = extractData(fname, CorrelationThreshold,n_camField);
@@ -400,6 +437,15 @@ if out1.dimNum == 3
     if eav == 1
         D.uncW = D.uncW/U;
     end
+end
+
+% Set output variables
+switch nargout
+    case 1
+        varargout{1} = D;
+    case 2
+        varargout{1} = D;
+        varargout{2} = A;
 end
 
 % Return to main folder
