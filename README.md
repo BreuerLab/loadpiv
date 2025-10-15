@@ -11,23 +11,23 @@ Make sure the add-on corresponds to the correct Operating System.**
    VERSION DESCRIPTION IN THE FORMAT SPECIFIED.
  -------------------------------------------------------------------------
  ## Sintax:
- 
+
  `D = loadpiv(folderPIV)`
- 
+
  `D = loadpiv(folderPIV, params, "nondim")`
- 
+
  `D = loadpiv(folderPIV, "extractAllVariables")`
- 
+
  `D = loadpiv(folderPIV, "numCamFields", 2)`
- 
+
  `D = loadpiv(folderPIV, "frameRange", [1:2:100])`
- 
+
  `D = loadpiv(folderPIV, "fovCenter", [-0.2, 3.1])`
- 
+
  `D = loadpiv(folderPIV, "fovRot", 0.23)`
- 
+
  `D = loadpiv(folderPIV, "Validate", 0.4)`
- 
+
  -------------------------------------------------------------------------
  ### Mandatory inputs:
 
@@ -88,7 +88,16 @@ Make sure the add-on corresponds to the correct Operating System.**
                correlation value, otherwise passes NaN-values.
 
  -------------------------------------------------------------------------
- ### Output data - all in a data structure "D":
+ ### Output arguments
+
+ `D = loadpiv(__)` : outputs flow data in structure `D`.
+
+ `[D,A] = loadpiv(__)` : outputs flow data in structure `D`, and recording
+               attributes in structure `A`. Currently only outputs 
+               **total acquisition time** in seconds.
+
+ -------------------------------------------------------------------------
+ ### Output flow data - data structure "D":
 
 `x` : array containing x-coordinates with size `[n, m]`.
 
@@ -111,11 +120,16 @@ Make sure the add-on corresponds to the correct Operating System.**
 `uncW` : array containing z-velocity uncertainty with size `[n, m, N]`.
 
  -------------------------------------------------------------------------
+ ### Output recording attributes - structure "A":
+
+`totalAcquisitionTime` : total PIV acquisition time in seconds.
+
+ -------------------------------------------------------------------------
  ## UPDATES:
 
  #### Version 1.0.0
  2024/10/31 - Eric Handy (with snippets from Alex, Siyang, and Kenny)
- 
+
  #### Version 1.1.0
  2024/11/06 - Eric Handy
  - Bug fixes.
@@ -150,6 +164,10 @@ Make sure the add-on corresponds to the correct Operating System.**
  2025/10/01 - Eric Handy
  - Bug fixes.
 
+#### Version 2.2.0
+ 2025/10/15 - Eric Handy
+ - Added option to output a recording attributes structure `A`.
+ - Bug fixes.
 --------------------------------------------------------------------------
  **SINTAX FOR UPDATES:**
  #### Version N1.N2.N3
