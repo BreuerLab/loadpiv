@@ -445,11 +445,13 @@ if out1.dimNum == 3
 end
 
 % Set output variables
-A.totalAcquisitionTime = acqTime_fnsh - acqTime_strt;
 switch nargout
     case 1
         varargout{1} = D;
     case 2
+        % Store in attributes structure
+        A.totalAcquisitionTime = acqTime_fnsh - acqTime_strt;
+        % Output variables
         varargout{1} = D;
         varargout{2} = A;
 end
