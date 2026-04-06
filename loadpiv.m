@@ -98,6 +98,8 @@ function varargout = loadpiv(folderPIV, varargin)
 % 
 %  -------------------------------------------------------------------------
 %  ### Output flow data - data structure "D":
+%
+% 'AcqTime' : array containing the timestamp of each frame in seconds.
 % 
 % `x` : array containing x-coordinates with size `[n, m]`.
 % 
@@ -168,8 +170,12 @@ function varargout = loadpiv(folderPIV, varargin)
 %  2025/10/15 - Eric Handy
 %  - Added option to output a recording attributes structure `A`.
 %  - Bug fixes.
+%
+% #### Version 2.3.0
+%  2026/04/06 - Alexander Gehrke
+%  - Added frame time acquisition output to structure.
 % --------------------------------------------------------------------------
-%  **SINTAX FOR UPDATES:**
+%  **SYNTAX FOR UPDATES:**
 %  #### Version N1.N2.N3
 %  YYYY/MM/DD - Name Last
 %  - N1 for large structural overhauls to the function (new data structure,
@@ -405,6 +411,8 @@ for file = frameRange
 
     D.vort(:,:,fnum) = out1.vortRaw;
 
+    D.AcqTime(fnum) = out1.AcqTime; % Time each frame is recorded [microseconds]
+
     if eav == 1
         D.corr(:,:,fnum) = out1.corrRaw;
         D.uncU(:,:,fnum) = out1.uncURaw;
@@ -476,6 +484,10 @@ S = dataStructure.Frames{n_camField, 1}.Scales;
 
 % Grids
 G = dataStructure.Frames{n_camField, 1}.Grids;
+
+% Acqusition Times
+AcqTime = dataStructure.Frames{1,1}.Attributes{3}.Value;
+out1.AcqTime  = str2double(AcqTime(1:end-3))*1e-6;
 
 % Find field names by search (not hard-coded)
 for i=1:length(C)
