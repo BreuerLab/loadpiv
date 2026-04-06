@@ -168,6 +168,10 @@ Make sure the add-on corresponds to the correct Operating System.**
  2025/10/15 - Eric Handy
  - Added option to output a recording attributes structure `A`.
  - Bug fixes.
+
+#### Version 2.3.0
+2026/04/06 - Alexander Gehrke
+ - Added frame time acquisition output to structure.
 --------------------------------------------------------------------------
  **SINTAX FOR UPDATES:**
  #### Version N1.N2.N3
