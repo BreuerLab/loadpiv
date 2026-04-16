@@ -28,6 +28,8 @@ function varargout = loadpiv(folderPIV, varargin)
 % 
 %  `D = loadpiv(folderPIV, "Validate", 0.4)`
 % 
+%  `D = loadpiv(folderPIV, "verbose", false)`
+% 
 %  -------------------------------------------------------------------------
 %  ### Mandatory inputs:
 % 
@@ -86,6 +88,9 @@ function varargout = loadpiv(folderPIV, varargin)
 % 
 %  `D = loadpiv(__, "Validate", minCorrelationValue)` : Sets a minimum
 %                correlation value, otherwise passes NaN-values.
+%
+%  `D = loadpiv(__, "verbose", isVerbose)` : Toggles command line outputs
+%                and non-critical warnings. Default is true.
 % 
 %  -------------------------------------------------------------------------
 %  ### Output arguments
@@ -174,6 +179,11 @@ function varargout = loadpiv(folderPIV, varargin)
 % #### Version 2.3.0
 %  2026/04/06 - Alexander Gehrke
 %  - Added frame time acquisition output to structure.
+%
+% #### Version 2.4.0
+%  2026/04/16 - Alexander Gehrke
+%  - Added "verbose" name-value argument to toggle command line outputs and
+%    non-critical warnings for bulk optimization runs. Default: true.
 % --------------------------------------------------------------------------
 %  **SYNTAX FOR UPDATES:**
 %  #### Version N1.N2.N3
@@ -199,6 +209,7 @@ end
 
 % Default parameters:
 CorrelationThreshold = 0;
+verbose = true; % Default to printing outputs
 
 % Parse inputs:
 skip_next = 0;
@@ -241,12 +252,23 @@ for optionNum = 1:length(varargin)
     
                 case 'Validate' % specify minimum vector correlation
                     CorrelationThreshold = varargin{optionNum+1};
-                    fprintf('Minimium correlation: %6.2f\n', CorrelationThreshold);
+                    if verbose
+                        fprintf('Minimium correlation: %6.2f\n', CorrelationThreshold);
+                    end
                     skip_next = 1;
                     
                 case 'numCamFields' % specify which camera to extract data from
                     n_camField = varargin{optionNum+1};
-                    fprintf('Extracting fields for camera: %1.0d\n',n_camField);
+                    if verbose
+                        fprintf('Extracting fields for camera: %1.0d\n',n_camField);
+                    end
+                    skip_next = 1;
+                
+                case 'verbose' % specify if outputs should be printed
+                    verbose = varargin{optionNum+1};
+                    if ~islogical(verbose) && ~isnumeric(verbose)
+                        error('"verbose" value invalid, must be a logical true/false or 1/0.')
+                    end
                     skip_next = 1;
     
                 otherwise
@@ -282,18 +304,24 @@ end
 
 % Check for Field of View characteristics
 if ~exist('fovCenter','Var')
-    disp('WARNING: "fovCenter" not specified.')
+    if verbose
+        disp('WARNING: "fovCenter" not specified.')
+    end
     fovCenter = [0,0];
 end
 
 if ~exist('fovRot','Var')
-    disp('WARNING: "fovRot" not specified.')
+    if verbose
+        disp('WARNING: "fovRot" not specified.')
+    end
     fovRot = 0;
 end
 
 % Check for n_camFields variable
 if ~exist('n_camField','Var')
-    warning('"numCamField" not specified. Default to numCamField = 1.')
+    if verbose
+        warning('"numCamField" not specified. Default to numCamField = 1.')
+    end
     n_camField = 1;
 end
 
@@ -302,10 +330,14 @@ if ~exist('nondim','Var')
     L = 1; U = 1;
 elseif nondim == 1
     if ~isfield(params,'L') || ~isfield(params,'U')
-        warning('"L" (length) and "U" (velocity) fields in struct "params" not passed. Output will be dimensional.')
+        if verbose
+            warning('"L" (length) and "U" (velocity) fields in struct "params" not passed. Output will be dimensional.')
+        end
         L = 1; U = 1;
     elseif ~isnumeric(params.L) || ~isnumeric(params.U)
-        warning('Values for "params.L" and/or "params.U" invalid, values must be numeric and in SI units. Output will be dimensional.')
+        if verbose
+            warning('Values for "params.L" and/or "params.U" invalid, values must be numeric and in SI units. Output will be dimensional.')
+        end
         L = 1; U = 1;
     else
         L = params.L; U = params.U;
@@ -381,7 +413,9 @@ for file = frameRange
         if out1.dimNum > 3
             error('Data structure constains unrecognized data structure, number of dimensions exceeds 3D data structure. Review data structure');
         end
-        disp([num2str(out1.dimNum),'-dimensional data available.'])
+        if verbose
+            disp([num2str(out1.dimNum),'-dimensional data available.'])
+        end
 
         %% Rotate coordinate system if needed
         D.x = ( (out1.xRaw-fovCenter(1)).*cos(fovRot) - (out1.yRaw-fovCenter(2)).*sin(fovRot) );
@@ -428,7 +462,7 @@ for file = frameRange
     end
 
     % Progress update
-    if mod(fnum,100) == 0
+    if mod(fnum,100) == 0 && verbose
         disp(['processed ',num2str(fnum),'/',num2str(length(frameRange))])
     end
 end
@@ -466,7 +500,10 @@ end
 
 % Return to main folder
 cd(folderMain)
-disp('Done')
+
+if verbose
+    disp('Done')
+end
 
 end
 
@@ -625,8 +662,3 @@ end
 % [omega_z, ~] = curl(xRaw, yRaw, uRaw, vRaw);
 
 end
-
-
-
-
-
